@@ -26,7 +26,6 @@ Seldon inspects all namespaces with these resources and creates a kubernetes Dep
 | `image` | See image documentation / example below. | - |
 | `node_affinity_label_key` | The node affinity label used to create the pods in the correct node pool. **DO NOT CHANGE IT**. | `purpose` |
 | `node_affinity_label_value` | The node affinity value used to create the pods in the correct node pool. **DO NOT CHANGE IT**. | `seldon-models` |
-| `enable_internal_load_balancer` | Creates an internal load balancer for the new model deployment (Intenal IP address). | `true` |
 
 ### Resources
 
@@ -72,19 +71,18 @@ In certain cases seldon provides us with a model specification, that can be pass
 
 **In these cases, just pass the `image_spec` variable as `null`**
 
-But when developing our own internal modesl, with custom libraries and logic, we will be building images.
+But when developing our own internal models, with custom libraries and logic, we will be building docker images.
 
 For those cases we need to pass to the seldon deployment CRD the correct image and pull policy.
 
 For those cases we can pass a variable / argument as the following:
 
-```
+```yaml
 image_spec = {
     image = "eu.gcr.io/mymodel-seldon:0.1"
     imagePullPolicy = ""IfNotPresent"
 }
 ```
-
 The `image` argument will be our image uri to our Google Cloud Containers.
 
 Images will need to be build for each environment (As we can test and tag images for each environment).
@@ -93,16 +91,11 @@ The `imagePullPolicy` doc can be checked [here](https://kubernetes.io/docs/conce
 
 # Testing your model with OPEN API / Swagger
 
-We are using Ambassador as our ingress for seldon. Log
+We are using Ambassador as our ingress for seldon.
 
 For testing your model when deployed port-forward the port `8443` from the ambassador ingress deployment:
 
-```console
+```bash
 kubectl -n ambassador port-forward deployment/yc-ml-ambassador-ingress 8443
 ```
-
 Open your browser on `https://localhost:8443/seldon/<namespace>/<model>/api/v1.0/doc/`
-
-As an example one of our current model deployed (suitability):
-
-`https://localhost:8443/seldon/yc-data-seldon-models/seldon-suitability/api/v1.0/doc/`
