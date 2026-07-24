@@ -6,6 +6,8 @@ This build wraps the seldon-core within the image.
 
 This image is them used for the seldon Deployment.
 
+It's a multi-stage image, with harden distroless python.
+
 ## Install all packages
 
 ```bash
@@ -49,9 +51,3 @@ Port forward at the cluster:
 ```bash
 k port-foward service/seldon-demo-model-classifier-classifier 9000:9000
 ```
-
-### TODO docker image improvements
-
-* Decrease the final image size (1.5GB now).
-* The image size is quite big, with most mlops images, that's one hte main issues.
-* Image harden is not done, so we should be shipping binaries and using a harden `server` image, without terminal / tools and so on.
