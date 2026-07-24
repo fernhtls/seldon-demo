@@ -4,7 +4,7 @@ WORKDIR /app
 COPY .python-version pyproject.toml uv.lock .
 RUN uv sync --locked
 # RUN .venv/bin/activate.sh
-COPY *.py .
+COPY *.py ./training-and-model-package/model.joblib .
 RUN chown -R 8888 /app
 # Exposing ports
 EXPOSE 5000

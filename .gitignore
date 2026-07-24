@@ -214,3 +214,5 @@ poetry.toml
 # LSP config files
 pyrightconfig.json
 
+model.joblib
+.terraform.lock.hcl
