@@ -36,7 +36,7 @@ variable "hpa_avg_mem" {
 
 variable "termination_grace_secs" {
   type    = number
-  default = 1
+  default = 5
 }
 
 variable "container_name" {
@@ -117,8 +117,8 @@ variable "ssl_enabled" {
   description = "Set's the ssl cert secret if true, enabling ssl / https connections"
 }
 
-variable "ssl_dns" {
-  type        = string
-  default     = "{}"
-  description = "Set's the dns host used for the certificate for the ssl connections"
-}
+// variable "ssl_dns" {
+//   type        = string
+//   default     = "{}"
+//   description = "Set's the dns host used for the certificate for the ssl connections"
+// }
