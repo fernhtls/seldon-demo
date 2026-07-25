@@ -14,6 +14,32 @@ It's a multi-stage image, with harden distroless python.
 uv sync --locked
 ```
 
+## Generate the model.joblib file
+
+Navigate now to the directory `/training-and-model-package`.
+
+Let's run the python `training` and `joblib` generator:
+
+```bash
+python training-and-model-package/generate_model.py
+```
+
+Or if you didn't source your new python venv, you can run with uv:
+
+```bash
+uv run python training-and-model-package/generate_model.py
+```
+
+This should generate a new `joblib` package file under the same directory: `/training-and-model-package/model.joblib`.
+
+This package is reffered in `Dockerfile`, so if you generate the file in a different location, copy it to this same location or change the `Dockerfiile`.
+
+```docker
+...
+COPY --chown=nonroot:nonroot --chmod=744 MyModel.py ./training-and-model-package/model.joblib .
+...
+```
+
 ## Build the image
 
 ```bash
