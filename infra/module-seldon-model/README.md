@@ -83,7 +83,7 @@ image_spec = {
     imagePullPolicy = ""IfNotPresent"
 }
 ```
-The `image` argument will be our image uri to our Google Cloud Containers.
+The `image` argument will be our image uri to our Google Cloud Containers, but it can be a local `minikube` uri for the image as well, after building it and loading.
 
 Images will need to be build for each environment (As we can test and tag images for each environment).
 
@@ -99,3 +99,5 @@ For testing your model when deployed port-forward the port `8443` from the ambas
 kubectl -n ambassador port-forward deployment/yc-ml-ambassador-ingress 8443
 ```
 Open your browser on `https://localhost:8443/seldon/<namespace>/<model>/api/v1.0/doc/`
+
+**Ps: The swagger page depends on a gateway installation, like Ambassador, it's not seldon feature.**
