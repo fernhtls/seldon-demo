@@ -6,7 +6,7 @@ It's mainly creating a CRD for seldon called `SeldonDeployment`.
 
 Seldon inspects all namespaces with these resources and creates a kubernetes Deployment.
 
-## Main variables / arguments to pass
+## Main variables / arguments
 
 **Ps: Variables without default values are mandatory**
 
@@ -89,7 +89,7 @@ Images will need to be build for each environment (As we can test and tag images
 
 The `imagePullPolicy` doc can be checked [here](https://kubernetes.io/docs/concepts/containers/images/#updating-images).
 
-# Testing your model with OPEN API / Swagger
+## Testing your model with OPEN API / Swagger
 
 We are using Ambassador as our ingress for seldon.
 
@@ -100,4 +100,25 @@ kubectl -n ambassador port-forward deployment/yc-ml-ambassador-ingress 8443
 ```
 Open your browser on `https://localhost:8443/seldon/<namespace>/<model>/api/v1.0/doc/`
 
-**Ps: The swagger page depends on a gateway installation, like Ambassador, it's not seldon feature.**
+**Ps: The swagger page depends on a gateway installation, like Ambassador, it's not a seldon feature.**
+
+You can as well just port-forward your seldon service:
+
+```bash
+kubectl -n seldon-models port-forward services/seldon-demo-model-classifier-classifier 9000:9000
+```
+
+**Ps: Change the local port if needed. Spec is [LOCAL]:[REMOTE].**
+
+Example curl call:
+
+```bash
+curl -v http://localhost:9000/api/v1.0/predictions \
+-H 'Content-Type: application/json' \
+-d '{"data": {"names": ["sepal_length", "sepal_width", "petal_length", "petal_width"], "ndarray": [[0.1, 1.5, 5.4, 7.2]]}}'
+```
+Response:
+
+```json
+{"data":{"names":["t:0","t:1","t:2","t:3"],"ndarray":[[2.0,3.706771757685523e-12,2.0320340153976877e-10,0.9999999997930897]]},"meta":{"requestPath":{"classifier":"docker.io/library/seldon-mock-model:v1.0.0"}}}
+```
