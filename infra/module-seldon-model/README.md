@@ -24,8 +24,8 @@ Seldon inspects all namespaces with these resources and creates a kubernetes Dep
 | `resources_requests` | See resources documentation / example below. | `Check the variable here in the module.` |
 | `graph` | See graph documentation / example below. | - |
 | `image` | See image documentation / example below. | - |
-| `node_affinity_label_key` | The node affinity label used to create the pods in the correct node pool. **DO NOT CHANGE IT**. | `purpose` |
-| `node_affinity_label_value` | The node affinity value used to create the pods in the correct node pool. **DO NOT CHANGE IT**. | `seldon-models` |
+| `node_affinity_label_key` | The node affinity label used to create the pods in the correct node pool. **DO NOT CHANGE IT**. | `kubernetes.io/hostname` |
+| `node_affinity_label_value` | The node affinity value used to create the pods in the correct node pool. **DO NOT CHANGE IT**. | `minikube` |
 
 ### Resources
 
