@@ -32,5 +32,3 @@ max_iter=200 in the training script just raises the cap on optimizer iterations 
 ## What the saved model.joblib actually contains
 
 Just the learned weight matrix, bias terms, and class labels — nothing about the training data itself. That's what makes it small (a few KB) and fast to load in the Seldon sklearn server at inference time.
-
-Want me to swap this for a slightly more "real" example (e.g. a binary classifier on a business-relevant dataset), or is Iris fine as the reference model for your Seldon setup?
